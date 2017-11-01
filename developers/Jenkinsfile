@@ -61,9 +61,11 @@ node("Builder") {
     }
 
     stage('CakeML') {
-        withEnv(["PATH+EXTRA=${build_dir}/HOL/bin:${build_dir}/usr/bin"]) {  // The PATH+SOMETHING syntax preserves the existing PATH
+        withEnv(["PATH+EXTRA=${build_dir}/HOL/bin:${build_dir}/usr/bin",  // The PATH+SOMETHING syntax preserves the existing PATH
+                 'LC_ALL=en_AU.UTF-8',
+                 'LANG=en_AU.UTF-8']) {  
             build_image.inside('-e HOME=/tmp') {
-                sh 'cd cakeml && bash -x ./developers/regression-test.sh'
+                sh 'cd cakeml && bash -x ./developers/build-email.sh'
             }
         }
     }

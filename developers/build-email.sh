@@ -9,7 +9,10 @@ log_f=$(mktemp /tmp/cakeml-log.XXXXXX)
 state_f=$(mktemp /tmp/cakeml-state.XXXXXX)
 trap "rm -f $log_f $state_f" 0 2 3 15 EXIT
 
-to='builds@cakeml.org'
+#to='builds@cakeml.org'
+to='luke.mondy@data61.csiro.au'
+
+echo "CakeML build starting ;)" | mail -s "CakeML: starting" $to
 
 timeout 48h developers/regression-test.sh $state_f &> >(tee $log_f)
 result=$?
